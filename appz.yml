@@ -1,0 +1,40 @@
+app:
+    name: OpenProject
+    code: OPENPROJECT 
+    notify: svengathattil@ecloudcontrol.com
+
+build:
+    version: 11.3
+    env: DEV
+    build_file: none
+    output_files: output/*.zip
+    image_template: openproject-11.3
+
+deploy:
+    context: sidharth-v/DEV
+    type: statefulset
+    replicas: 1
+    port:
+    - 80
+
+volumes:
+ - claim: openproject-assets
+   mount: /appz/data/openproject  
+   name: assets
+   size: 5Gi
+    
+properties:
+    SECRET_KEY_BASE: 
+      vault: SECRET_KEY_BASE
+    FILESYNC_ENABLE: 'yes'
+    ATTACHMENTS_STORAGE_PATH: /appz/data/openproject/assets/files
+    POSTGRES_HOST: openproject-postgres-13-x    
+    POSTGRES_PORT: 5432
+    POSTGRES_DB: openproject
+    POSTGRES_USER: openproject
+    POSTGRES_PASSWORD: 
+      vault: POSTGRESQL_OPENPROJECT_PASSWORD
+    RSYNC_SECRET:
+      vault: RSYNC_SECRET
+    ENABLE_BOARDS: 0
+    revision: 8
