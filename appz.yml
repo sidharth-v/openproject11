@@ -1,6 +1,6 @@
 app:
-    name: OpenProject
-    code: OPENPROJECT 
+    name: OpenProject11
+    code: OPENPROJECT11 
     notify: svengathattil@ecloudcontrol.com
 
 build:
